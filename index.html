@@ -25,7 +25,12 @@
       <article>
         <h2>Pending List</h2>
         <ol type="A">
-          <li v-for="eachTodo in todoArray" :key="eachTodo">{{eachTodo}}</li>
+          <li v-for="(eachTodo, eachInx) in todoArray" :key="eachInx">
+            <span>
+              {{eachTodo}}
+              <button @click="deleteTodo(eachInx)">delete</button>
+            </span>
+          </li>
         </ol>
       </article>
     </div>
@@ -49,6 +54,11 @@
               this.notification = "Please input a task first!";
             }
             this.todo = "";
+          },
+          deleteTodo(todoInx) {
+            console.log(todoInx, "has been deleted");
+            this.todoArray.splice(todoInx, 1);
+            this.notification = "Todo deleted successfully";
           },
         },
       }).mount("#app");
