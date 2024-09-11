@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Vue</title>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header>
+        <h1>{{notification}}</h1>
+      </header>
+      <form action="" @submit.prevent="createTodo">
+        <label for="todoInput" class="todoInput"></label>
+        <input
+          type="text"
+          placeholder="enter your todo here..."
+          name="todoInput"
+          class="todoInput"
+          v-model="todo"
+        />
+        <button type="submit">Create todo</button>
+      </form>
+      <article>
+        <h2>Pending List</h2>
+        <ol type="A">
+          <li v-for="eachTodo in todoArray" :key="eachTodo">{{eachTodo}}</li>
+        </ol>
+      </article>
+    </div>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            notification: "Welcome...",
+            online: false,
+            todo: "",
+            todoArray: [],
+          };
+        },
+        methods: {
+          createTodo() {
+            if (this.todo !== "") {
+              this.todoArray.push(this.todo);
+              this.notification = "Todo added successfully";
+            } else {
+              this.notification = "Please input a task first!";
+            }
+            this.todo = "";
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
